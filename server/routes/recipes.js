@@ -98,3 +98,5 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
 })
+
+export default router
