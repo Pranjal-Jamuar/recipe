@@ -37,4 +37,10 @@ export const AuthProvider = ({ children }) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
     setUser(res.data)
   }
+
+  const logOut = () => {
+    localStorage.removeItem("token")
+    delete axios.defaults.headers.common["Authorization"]
+    setUser(null)
+  }
 }
