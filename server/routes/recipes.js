@@ -78,6 +78,7 @@ router.put("/:id", async (req, res) => {
     recipe.cookingTime = cookingTime || recipe.cookingTime
 
     const updatedRecipe = await recipe.save()
+    res.json(updatedRecipe)
   } catch (err) {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
