@@ -26,3 +26,24 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
 })
+
+// Login User
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body
+
+  try {
+    const user = await User.findOne({ email })
+    if (!user || (await user.matchPassowrd(password)))
+      return res.status(401).json({ message: "Invalid Credentials!" })
+
+    res.json({
+      id: user._id,
+      userName: user.userName,
+      email: user.email,
+    })
+  } catch (err) {
+    res.status(500).json({ message: "Bad Request. Server Error!" })
+  }
+})
+
+export default router
