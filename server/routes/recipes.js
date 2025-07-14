@@ -58,3 +58,27 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
 })
+
+// Route to update a recipe
+router.put("/:id", async (req, res) => {
+  const { title, ingredients, instructions, category, photoUrl, cookingTime } =
+    req.body
+
+  try {
+    const recipe = await Recipe.findById(req.params.id)
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found!" })
+    }
+
+    recipe.title = title || recipe.title
+    recipe.ingredients = ingredients || recipe.ingredients
+    recipe.instructions = instructions || recipe.instructions
+    recipe.category = category || recipe.category
+    recipe.photoUrl = photoUrl || recipe.photoUrl
+    recipe.cookingTime = cookingTime || recipe.cookingTime
+
+    const updatedRecipe = await recipe.save()
+  } catch (err) {
+    res.status(500).json({ message: "Bad Request. Server Error!" })
+  }
+})
