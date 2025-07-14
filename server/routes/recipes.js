@@ -45,3 +45,16 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
 })
+
+// Route to get a single recipe
+router.get("/:id", async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id)
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found!" })
+    }
+    res.json(recipe)
+  } catch (err) {
+    res.status(500).json({ message: "Bad Request. Server Error!" })
+  }
+})
