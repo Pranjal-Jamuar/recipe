@@ -32,3 +32,16 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Bad Request. Server Error!" })
   }
 })
+
+// Route to get Recipes
+router.get("/", async (req, res) => {
+  const { category } = req.query
+
+  try {
+    const query = category ? { category } : {}
+    const recipes = await Recipe.find(query)
+    res.json(recipes)
+  } catch (error) {
+    res.status(500).json({ message: "Bad Request. Server Error!" })
+  }
+})
