@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 
-const user = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     userName: {
       type: String,
@@ -19,7 +19,7 @@ const user = new mongoose.Schema(
     },
   },
   {
-    timestamps: t,
+    timestamps: true,
   }
 )
 
