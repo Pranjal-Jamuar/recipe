@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ email })
-    if (!user || (await user.matchPassowrd(password)))
+    if (!user || (await user.matchPassword(password)))
       return res.status(401).json({ message: "Invalid Credentials!" })
 
     const token = generateToken(user._id)
