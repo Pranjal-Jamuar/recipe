@@ -1,4 +1,4 @@
-import { Children, createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import axios from "axios"
 
 export const AuthContext = createContext()
@@ -52,6 +52,8 @@ export const AuthProvider = ({ children }) => {
         register,
         logOut,
       }}
-    ></AuthContext.Provider>
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
