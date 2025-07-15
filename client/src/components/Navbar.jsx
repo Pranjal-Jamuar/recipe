@@ -1,7 +1,17 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext"
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext)
+
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    logOut()
+    navigate("/login")
+  }
+
   return (
     <nav className='bg-white shadow-md p-4'>
       <div className='max-w-7xl mx-auto flex justify-between items-center'>
@@ -9,12 +19,25 @@ const Navbar = () => {
           <h1>Recipes</h1>
         </Link>
         <div className='flex gap-x-4'>
-          <Link to='/login'>
-            <button>Login</button>
-          </Link>
-          <Link to='/register'>
-            <button>Register</button>
-          </Link>
+          {user ? (
+            <div>
+              <button
+                onClick={handleLogOut}
+                className='text-gray-600 hover:text-gray-800'
+              >
+                LogOut
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link to='/login'>
+                <button>Login</button>
+              </Link>
+              <Link to='/register'>
+                <button>Register</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

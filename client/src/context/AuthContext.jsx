@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
     })
+    console.log(res.data)
     localStorage.setItem("token", res.data.token)
     axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
     setUser(res.data)
@@ -33,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
     })
+    console.log(res.data)
     localStorage.setItem("token", res.data.token)
     axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
     setUser(res.data)
