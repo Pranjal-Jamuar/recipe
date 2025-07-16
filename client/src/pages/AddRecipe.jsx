@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const AddRecipe = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const AddRecipe = () => {
 
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -48,15 +48,39 @@ const AddRecipe = () => {
     }
   }
 
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    try {
+      await axios.post("/api/recipes", {
+        title: formData.title,
+        ingredients: formData.ingredients.filter(i => i.trim() !== ""),
+        instructions: formData.instructions,
+        category: formData.category,
+        photoUrl: formData.photoUrl,
+        cookingTime: formData.cookingTime
+          ? Number(formData.cookingTime)
+          : undefined,
+      })
+      navigate("/")
+    } catch (err) {
+      setError("Failed to add recipe!")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className='max-w-2xl mx-auto p-4'>
       <h1 className='text-2xl font-bold'>Add Recipe</h1>
-      <form className='space-y-4'>
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <div>
           <label className='block text-gray-700'>Title</label>
           <input
             type='text'
-            value={formData.value}
+            value={formData.title}
             onChange={e => handleInputChange("title", e.target.value)}
             className='w-full p-2 border rounded'
             required
@@ -93,6 +117,67 @@ const AddRecipe = () => {
             Add Ingredient
           </button>
         </div>
+        <div>
+          <label className='block text-gray-700'>Instructions</label>
+          <textarea
+            type='text'
+            value={formData.instructions}
+            onChange={e => handleInputChange("instructions", e.target.value)}
+            className='w-full p-2 border rounded'
+            required
+          />
+        </div>
+        <div>
+          <label className='block text-gray-700'>Category</label>
+          <select
+            onChange={e => handleInputChange("category", e.target.value)}
+            value={formData.category}
+            className='w-full p-2 border rounded'
+          >
+            <option value='' disabled>
+              Select Category
+            </option>
+            <option value='Breakfast'>Breakfast</option>
+            <option value='Lunch'>Lunch</option>
+            <option value='Dinner'>Dinner</option>
+            <option value='Dessert'>Dessert</option>
+            <option value='Snack'>Snack</option>
+          </select>
+        </div>
+        <div>
+          <label className='block text-gray-700'>
+            Cooking Time (in minutes)
+          </label>
+          <input
+            type='number'
+            value={formData.cookingTime}
+            onChange={e => handleInputChange("cookingTime", e.target.value)}
+            className='w-full p-2 border rounded'
+            placeholder='e.g., 30'
+            required
+            min={0}
+          />
+        </div>
+        <div>
+          <label className='block text-gray-700'>Photo URL</label>
+          <input
+            type='text'
+            value={formData.photoUrl}
+            onChange={e => handleInputChange("photoUrl", e.target.value)}
+            className='w-full p-2 border rounded'
+            placeholder='URL here'
+            required
+          />
+        </div>
+        <button
+          className={`bg-blue-500 text-white p-2 rounded hover:bg-blue-600 ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={loading}
+          type='submit'
+        >
+          {loading ? "Adding..." : "Add Recipe"}
+        </button>
       </form>
     </div>
   )
