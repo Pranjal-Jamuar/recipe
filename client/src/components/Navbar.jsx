@@ -20,7 +20,10 @@ const Navbar = () => {
         </Link>
         <div className='flex gap-x-4'>
           {user ? (
-            <div>
+            <div className='flex gap-x-4'>
+              <Link to={"/add-recipe"}>
+                <button>Add Recipe</button>
+              </Link>
               <button
                 onClick={handleLogOut}
                 className='text-gray-600 hover:text-gray-800'
