@@ -52,7 +52,40 @@ const EditRecipe = () => {
     e.preventDefault()
     setError("")
     setLoading(true)
+
+    try {
+      await axios.put(`api/recipes/${id}`, {
+        title: formData.title,
+        ingredients: formData.ingredients.filter(i => i.trim() !== ""),
+        instructions: formData.instructions,
+        category: formData.category,
+        photoUrl: formData.photoUrl,
+        cookingTime: formData.cookingTime
+          ? Number(formData.cookingTime)
+          : undefined,
+      })
+      navigate("/")
+    } catch (error) {
+      setError("Failed to add recipe!")
+    } finally {
+      setLoading(false)
+    }
   }
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      const res = await axios.get(`api/recipes/${id}`)
+      setFormData({
+        title: res.data.title,
+        ingredients: res.data.ingredients,
+        instructions: res.data.instructions,
+        category: res.data.category,
+        photoUrl: res.data.photoUrl,
+        cookingTime: res.data.cookingTime,
+      })
+    }
+    fetchRecipe()
+  }, [id])
 
   return <div>EditRecipe</div>
 }
