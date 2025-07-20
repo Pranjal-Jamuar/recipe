@@ -38,6 +38,22 @@ const EditRecipe = () => {
       setError("Please fill in the last ingredient before adding a new one!")
   }
 
+  const removeIngredient = index => {
+    if (formData.ingredients.length > 1) {
+      const newIngredients = formData.ingredients.filter((_, i) => i !== index)
+      handleInputChange("ingredients", newIngredients)
+      const lastIngredient =
+        formData.ingredients[formData.ingredients.length - 1]
+      if (error && lastIngredient.trim() !== "") setError("")
+    }
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+  }
+
   return <div>EditRecipe</div>
 }
 
