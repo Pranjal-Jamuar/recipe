@@ -75,4 +75,3 @@ You will need to have the following software installed on your machine:
     npm run dev
     ```
 
-The application should now be running on `http://localhost:5173` (or whatever port Vite specifies).
