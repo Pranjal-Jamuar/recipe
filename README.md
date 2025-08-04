@@ -22,7 +22,7 @@ Recipe Share is a dynamic and interactive web application built with the MERN st
 
 ## 🚀 Getting Started
 
-<!-- Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes. -->
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
