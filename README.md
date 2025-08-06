@@ -31,7 +31,7 @@ You will need to have the following software installed on your machine:
 -   [Node.js](https://nodejs.org/en/) (which includes npm)
 -   [MongoDB](https://www.mongodb.com/try/download/community)
 
-<!-- ### Installation -->
+ ### Installation
 
 1.  **Clone the repository:**
     ```bash
