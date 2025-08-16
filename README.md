@@ -20,7 +20,7 @@ Recipe Share is a dynamic and interactive web application built with the MERN st
 -   **Database:** **MongoDB** (with Mongoose for object data modeling).
 -   **Architecture:** The project follows the **MERN** (MongoDB, Express.js, React.js, Node.js) stack architecture.
 
-## 🚀 Getting Started
+<!-- ## 🚀 Getting Started -->
 
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
